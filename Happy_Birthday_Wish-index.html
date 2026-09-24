@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            overflow: hidden;
+            transition: background 1s ease, color 1s ease;
+            color: #fff; /* Default text color */
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out, glow 1.5s infinite alternate;
+            transition: color 1s ease;
+            color: #ff1493; /* Set initial color to pink */
+        }
+
+        p {
+            font-size: 1.5em;
+            margin: 10px 0;
+            animation: slideIn 2s ease-in-out;
+            transition: color 1s ease;
+        }
+
+        .heart {
+            width: 100px;
+            height: 100px;
+            background: #ff4d4d;
+            position: relative;
+            margin: 40px auto;
+            transform: rotate(-45deg);
+            animation: pulse 1.2s ease-in-out infinite;
+            display: none; /* Hidden until 'Yes' is clicked */
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background: #ff4d4d;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            opacity: 0.8;
+            animation: fall 5s linear infinite;
+            display: none; /* Hidden until 'Yes' is clicked */
+        }
+
+        .question {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s, color 0.3s;
+        }
+
+        #yesBtn {
+            background: #4caf50;
+            color: #fff;
+        }
+
+        #noBtn {
+            background: #ff4d4d;
+            color: #fff;
+            position: relative;
+        }
+
+        .kiss-animation {
+            display: none; /* Hidden until 'Yes' is clicked */
+            font-size: 2em;
+            margin: 20px 0;
+            animation: kiss 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.2); }
+            100% { transform: rotate(-45deg) scale(1); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #fff, 0 0 20px #ff4d4d; }
+            100% { text-shadow: 0 0 20px #fff, 0 0 30px #ff4d4d; }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes kiss {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Confetti variations */
+        .confetti:nth-child(2) { left: 10%; animation-delay: 1s; background: #ffd700; }
+        .confetti:nth-child(3) { left: 20%; animation-delay: 2s; background: #ff69b4; }
+        .confetti:nth-child(4) { left: 30%; animation-delay: 0.5s; background: #00ff00; }
+        .confetti:nth-child(5) { left: 40%; animation-delay: 3s; background: #1e90ff; }
+        .confetti:nth-child(6) { left: 50%; animation-delay: 1.5s; background: #ff4500; }
+        .confetti:nth-child(7) { left: 60%; animation-delay: 2.5s; background: #9400d3; }
+        .confetti:nth-child(8) { left: 70%; animation-delay: 4s; background: #00ced1; }
+        .confetti:nth-child(9) { left: 80%; animation-delay: 0.8s; background: #ff1493; }
+        .confetti:nth-child(10) { left: 90%; animation-delay: 3.5s; background: #7fff00; }
+
+        /* Celebration state */
+        .celebration {
+            background: linear-gradient(135deg, #ff1493, #1e90ff);
+            animation: celebrationAnimation 3s infinite;
+        }
+
+        /* Celebration Animation */
+        @keyframes celebrationAnimation {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* Hover Effects for Buttons */
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background: #45a049;
+            color: #fff;
+        }
+
+        #noBtn:hover {
+            transform: scale(1.1);
+            background: #e53935;
+            color: #fff;
+        }
+
+        /* Hover Effect for Body */
+        body:hover {
+            background: linear-gradient(135deg, #ff1493, #1e90ff);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday, My Love!</h1>
+        <div class="question">Do you know how much I love you?</div>
+        <div class="buttons">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+        <p class="message" style="display: none;">You're my everything! Happy Birthday!</p>
+        <div class="kiss-animation">💋</div>
+        <div class="heart"></div>
+    </div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const container = document.querySelector('.container');
+        const heart = document.querySelector('.heart');
+        const confetti = document.querySelectorAll('.confetti');
+        const message = document.querySelector('.message');
+        const kissAnimation = document.querySelector('.kiss-animation');
+        const question = document.querySelector('.question');
+        const buttons = document.querySelector('.buttons');
+
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        });
+
+        yesBtn.addEventListener('click', () => {
+            document.body.classList.add('celebration');
+            question.style.display = 'none';
+            buttons.style.display = 'none';
+            message.style.display = 'block';
+            heart.style.display = 'block';
+            kissAnimation.style.display = 'block';
+            confetti.forEach(c => c.style.display = 'block');
+        });
+    </script>
+</body>
+</html>
